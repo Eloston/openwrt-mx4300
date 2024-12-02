@@ -2,9 +2,11 @@
 
 type="foss"  #foss nss
 ver="snapshot" #snapshot or release#
+buildkmod="y"
 
 [ ! -z $1 ] && type=$1
 [ ! -z $2 ] && ver=$2
+[ ! -z $3 ] && buildkmod=$3
 
 if grep -q "CONFIG_USE_APK=y" .config ; then
   mdfile="${type}-kmod-apk.md"
@@ -16,7 +18,7 @@ fi
 
 mkdir release
 
-if [ $type = "nss" -a $BUILD_KMOD != "n" ]; then
+if [ $type = "nss" -a $buildkmod != "n" ]; then
     mkdir kmods
     cp bin/targets/qualcommax/ipq807x/packages/packages* kmods
     cp bin/targets/qualcommax/ipq807x/packages/Packages* kmods
