@@ -27,10 +27,16 @@ if [ "${buildkmod}" != "n" ]; then
   echo extra kmods: $(echo $kmods | wc -w)
 fi
 
-cat nss-setup/config-nss.seed |  grep -v CONFIG_PACKAGE_luci >> .config
+cat nss-setup/config-nss.seed |
+grep -v CONFIG_PACKAGE_luci-app-sqm |
+grep -v CONFIG_PACKAGE_luci-app-acme |
+grep -v CONFIG_PACKAGE_luci-app-watchcat |
+grep -v CONFIG_PACKAGE_luci-app-nlbwmon >> .config
 echo "
 CONFIG_TARGET_qualcommax_ipq807x_DEVICE_linksys_mx4300=y
-CONFIG_PACKAGE_luci=y
+CONFIG_PACKAGE_bind-dig=y
+CONFIG_PACKAGE_drill=y
+CONFIG_PACKAGE_curl=y
 CONFIG_FEED_nss_packages=n
 " >> .config
 make defconfig
