@@ -74,3 +74,5 @@ rej=$(find . -name "*.rej"  | wc -l)
 if [ ! $rej = "0" ]; then
     exit 1
 fi
+
+sed -i -e 's,git.openwrt.org/feed,github.com/openwrt,g; s,git.openwrt.org/project,github.com/openwrt,g' feeds.conf.default
