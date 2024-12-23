@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash -ex -o pipefail
 
 type="foss"  #foss nss
 ver="snapshot" #snapshot or release#
@@ -20,8 +20,8 @@ mkdir release
 
 if [ $type = "nss" -a $buildkmod != "n" ]; then
     mkdir kmods
-    cp bin/targets/qualcommax/ipq807x/packages/packages* kmods
-    cp bin/targets/qualcommax/ipq807x/packages/Packages* kmods
+    cp bin/targets/qualcommax/ipq807x/packages/packages* kmods || true # exists if apk
+    cp bin/targets/qualcommax/ipq807x/packages/Packages* kmods || true # exists if opkg
     cp bin/targets/qualcommax/ipq807x/packages/kmod-* kmods
     tar cfz kmods.tar.gz kmods/
     cp kmods.tar.gz release/
